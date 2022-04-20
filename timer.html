@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Zeiterfassung</title>
+    <meta charset="UTF-8">
+    <link href="timer.css" rel="stylesheet">
+    <script src="timer.js" type="module"></script>
+</head>
+
+<body id="body">
+    <div>
+        <div id="headline">
+            <h1>Zeiterfassung</h1>
+        </div>
+
+        <div id="date">
+            Das heutige Datum ist:
+        </div>
+
+        <div id="time1">
+            Die aktuelle Uhrzeit ist: <span id="time"></span>
+        </div>
+        <table id="tabelle">
+            <thead>
+                <tr>
+                    <th>Datum</th>
+                    <th>Text</th>
+                    <th>von</th>
+                    <th>bis</th>
+                    <th>Pause</th>
+                    <th>Summe/Zeit</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+        <button id="Rechner" type="submit">Zeit berechnen</button>
+    </div>
+</body>
+
+</html>

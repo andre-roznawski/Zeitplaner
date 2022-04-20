@@ -1,0 +1,44 @@
+#body {
+    background-color: aqua;
+}
+
+#headline {
+    padding: 4px;
+    border: 4px;
+    margin: 4px;
+    font-family: sans-serif;
+    font-size: x-large;
+    text-align: center;
+    color: black;
+}
+
+#date {
+    padding: 4px;
+    border: 4px;
+    margin: 4px;
+    font-family: sans-serif;
+    font-size: x-large;
+    color: black;
+}
+
+#time1 {
+    padding: 4px;
+    border: 4px;
+    margin: 4px;
+    font-family: sans-serif;
+    font-size: x-large;
+    color: black;
+}
+th {
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-family: sans-serif;
+    text-align: center;
+    }
+table{ 
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+td{
+    border: 1px solid black; 
+}
