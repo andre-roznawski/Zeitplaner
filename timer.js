@@ -1,3 +1,5 @@
+let test = "0";
+
 function date() {
     var date = new Date();
     var day = date.getDate();
@@ -5,10 +7,10 @@ function date() {
     var year = date.getFullYear();
 
     if (month < 10) {
-        month = "0" + month;
+        month = (`${test}`) + month;
     }
     if (day < 10) {
-        day = "0" + day;
+        day = (`${test}`) + day;
     }
     document.getElementById('date').innerHTML = document.getElementById('date').innerHTML + day + "." + month + "." + year;
 }
@@ -22,13 +24,13 @@ function time() {
     var second = date.getSeconds();
 
     if (hour < 10) {
-        hour = "0" + hour;
+        hour = (`${test}`) + hour;
     }
     if (minute < 10) {
-        minute = "0" + minute;
+        minute = (`${test}`) + minute;
     }
     if (second < 10) {
-        second = "0" + second;
+        second = (`${test}`) + second;
     }
     document.getElementById('time').innerHTML = "" + hour + ":" + minute + ":" + second;
     setTimeout(time, 500);
@@ -63,10 +65,10 @@ function collumnMonat() {
     var year = date.getFullYear();
 
     if (month < 10) {
-        month = "0" + month;
+        month = (`${test}`) + month;
     }
     if (day < 10) {
-        day = "0" + day;
+        day = (`${test}`) + day;
     }
     for (let dayOfMonth = 1; dayOfMonth < 31; dayOfMonth++) {
         if (dayOfMonth < 10) {
@@ -87,7 +89,7 @@ function collumnMonat() {
         <input id="timeTo${dayOfMonth}" type="text"></input>
     </td>
     <td>
-        <input id="break1${dayOfMonth}" type="text"></input>
+        <input id="break${dayOfMonth}" type="text"></input>
     </td>
     <td id="summ${dayOfMonth}"></td>
 </tr>`;
@@ -99,14 +101,38 @@ collumnMonat();
 
 function calcTime(beginTime, endTime) {
 
-    let summe = endTime - beginTime;
+    let beginpaket = beginTime.split(":");
+    let begin_minuten = beginpaket[0] * 60;
+    let sumBegin = parseInt(begin_minuten) + parseInt(beginpaket[1]);
 
-    return summe;
+    let endpaket = endTime.split(":");
+    let end_minuten = endpaket[0] * 60;
+    let sumEnd = parseInt(end_minuten) + parseInt(endpaket[1]);
+
+    let summe = sumEnd - sumBegin;
+    if (summe>360){
+        summe = summe - 30
+    };
+    console.log(`${sumBegin} + ${sumEnd} + ${summe}`);
+
+    let stunden1 = Math.floor(summe / 60);
+    if (stunden1 < 10) {
+        stunden1 = (`${test}`) + stunden1
+    };
+    let minuten = summe - (stunden1 * 60);
+    if (minuten < 10) {
+        minuten = (`${test}`) + minuten
+    };
+    let sumString = (`${stunden1}:${minuten}`)
+
+    return sumString;
 }
 
 function rechnen() {
+
     let beginTime = document.getElementById('timeFrom01').value;
     let endTime = document.getElementById('timeTo01').value;
+    let breakTime = document.getElementById('break01').value;
     let summ_value = calcTime(beginTime, endTime);
 
     document.getElementById("summ01").innerHTML = summ_value;
