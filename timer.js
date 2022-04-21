@@ -89,7 +89,7 @@ function collumnMonat() {
         <input id="timeTo${dayOfMonth}" type="text"></input>
     </td>
     <td>
-        <input id="break1${dayOfMonth}" type="text"></input>
+        <input id="break${dayOfMonth}" type="text"></input>
     </td>
     <td id="summ${dayOfMonth}"></td>
 </tr>`;
@@ -132,6 +132,7 @@ function rechnen() {
 
     let beginTime = document.getElementById('timeFrom01').value;
     let endTime = document.getElementById('timeTo01').value;
+    let breakTime = document.getElementById('break01').value;
     let summ_value = calcTime(beginTime, endTime);
 
     document.getElementById("summ01").innerHTML = summ_value;
