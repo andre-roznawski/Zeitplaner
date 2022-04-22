@@ -57,7 +57,7 @@ var timer = setInterval(function () {
 
 }, 1000);
 
-function collumnMonat() {
+function columnMonat() {
 
     var date = new Date;
     var day = date.getDate();
@@ -97,9 +97,9 @@ function collumnMonat() {
     }
 }
 
-collumnMonat();
+columnMonat();
 
-function calcTime(beginTime, endTime) {
+function calcTime(beginTime, endTime, breakTime) {
 
     let beginpaket = beginTime.split(":");
     let begin_minuten = beginpaket[0] * 60;
@@ -109,10 +109,21 @@ function calcTime(beginTime, endTime) {
     let end_minuten = endpaket[0] * 60;
     let sumEnd = parseInt(end_minuten) + parseInt(endpaket[1]);
 
+    let breakpaket = breakTime.split(":");
+    let break_minuten = breakpaket[0] * 60;
+    let sumBreak = parseInt(break_minuten) + parseInt(breakpaket[1]);
+
     let summe = sumEnd - sumBegin;
-    if (summe>360){
-        summe = summe - 30
-    };
+
+    if (sumBreak>30){
+        summe = sumEnd - sumBegin - sumBreak;
+    } else {
+        if (summe>360){
+            summe = summe - 30
+            }
+        }
+    
+
     console.log(`${sumBegin} + ${sumEnd} + ${summe}`);
 
     let stunden1 = Math.floor(summe / 60);
@@ -133,7 +144,7 @@ function rechnen() {
     let beginTime = document.getElementById('timeFrom01').value;
     let endTime = document.getElementById('timeTo01').value;
     let breakTime = document.getElementById('break01').value;
-    let summ_value = calcTime(beginTime, endTime);
+    let summ_value = calcTime(beginTime, endTime, breakTime);
 
     document.getElementById("summ01").innerHTML = summ_value;
 }
