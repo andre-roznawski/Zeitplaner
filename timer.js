@@ -59,7 +59,7 @@ var timer = setInterval(function () {
 
 function columnMonat() {
 
-    var date = new Date;
+    var date = new Date();
     var day = date.getDate();
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
@@ -74,7 +74,8 @@ function columnMonat() {
         if (dayOfMonth < 10) {
             dayOfMonth = "0" + dayOfMonth;
         }
-        let ausgabe = dayOfMonth + "." + month + "." + year;
+
+    let ausgabe = dayOfMonth + "." + month + "." + year;
 
         document.getElementById('tableBody').innerHTML = document.getElementById('tableBody').innerHTML + `
     <tr>
@@ -123,7 +124,6 @@ function calcTime(beginTime, endTime, breakTime) {
             }
         }
     
-
     console.log(`${sumBegin} + ${sumEnd} + ${summe}`);
 
     let stunden1 = Math.floor(summe / 60);
@@ -141,12 +141,19 @@ function calcTime(beginTime, endTime, breakTime) {
 
 function rechnen() {
 
-    let beginTime = document.getElementById('timeFrom01').value;
-    let endTime = document.getElementById('timeTo01').value;
-    let breakTime = document.getElementById('break01').value;
-    let summ_value = calcTime(beginTime, endTime, breakTime);
+    for (let dayOfMonth = 1; dayOfMonth < 31; dayOfMonth++) {
+        if (dayOfMonth < 10) {
+            dayOfMonth = "0" + dayOfMonth;
+        }
 
-    document.getElementById("summ01").innerHTML = summ_value;
+        let beginTime = document.getElementById(`timeFrom${dayOfMonth}`).value;
+        let endTime = document.getElementById(`timeTo${dayOfMonth}`).value;
+        let breakTime = document.getElementById(`break${dayOfMonth}`).value;
+        let summ_value = calcTime(beginTime, endTime, breakTime);
+
+        document.getElementById(`summ${dayOfMonth}`).innerHTML = summ_value;
+    }
 }
 
 document.getElementById("Rechner").addEventListener("click", rechnen);
+
