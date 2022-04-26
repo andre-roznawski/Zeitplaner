@@ -75,24 +75,24 @@ function columnMonat() {
             dayOfMonth = "0" + dayOfMonth;
         }
 
-    let ausgabe = dayOfMonth + "." + month + "." + year;
+        let ausgabe = dayOfMonth + "." + month + "." + year;
 
         document.getElementById('tableBody').innerHTML = document.getElementById('tableBody').innerHTML + `
     <tr>
     <td id="day">${ausgabe}</td>
     <td>
-        <input id="text${dayOfMonth}" type="text"></input>
+        <input id="text-${dayOfMonth}" type="text"></input>
     </td>
     <td>
-        <input id="timeFrom${dayOfMonth}" type="text"></input>
+        <input id="timeFrom-${dayOfMonth}" type="text"></input>
     </td>
     <td>
-        <input id="timeTo${dayOfMonth}" type="text"></input>
+        <input id="timeTo-${dayOfMonth}" type="text"></input>
     </td>
     <td>
-        <input id="break${dayOfMonth}" type="text"></input>
+        <input id="break-${dayOfMonth}" type="text"></input>
     </td>
-    <td id="summ${dayOfMonth}"></td>
+    <td id="summ-${dayOfMonth}"></td>
 </tr>`;
 
     }
@@ -100,9 +100,18 @@ function columnMonat() {
 
 columnMonat();
 
-function calcTime2 (ereignis){
-   let id = ereignis.target.id;
-   console.log(id)
+function calcTime2(ereignis) {
+    let id = ereignis.target.id;
+    let array_id = id.split('-');
+    let dayOfMonth = array_id[1];
+    console.log(id);
+
+    let beginTime = document.getElementById(`timeFrom-${dayOfMonth}`).value;
+    let endTime = document.getElementById(`timeTo-${dayOfMonth}`).value;
+    let breakTime = document.getElementById(`break-${dayOfMonth}`).value;
+    let summ_value = calcTime(beginTime, endTime, breakTime);
+
+    document.getElementById(`summ-${dayOfMonth}`).innerHTML = summ_value;
 };
 
 function calcTime(beginTime, endTime, breakTime) {
@@ -121,14 +130,14 @@ function calcTime(beginTime, endTime, breakTime) {
 
     let summe = sumEnd - sumBegin;
 
-    if (sumBreak>30){
+    if (sumBreak > 30) {
         summe = sumEnd - sumBegin - sumBreak;
     } else {
-        if (summe>360){
+        if (summe > 360) {
             summe = summe - 30
-            }
         }
-    
+    }
+
     console.log(`${sumBegin} + ${sumEnd} + ${summe}`);
 
     let stunden1 = Math.floor(summe / 60);
@@ -151,22 +160,15 @@ function rechnen() {
             dayOfMonth = "0" + dayOfMonth;
         }
 
-        let beginTime = document.getElementById(`timeFrom${dayOfMonth}`).value;
-        let endTime = document.getElementById(`timeTo${dayOfMonth}`).value;
-        let breakTime = document.getElementById(`break${dayOfMonth}`).value;
-        //document.getElementById(`break${dayOfMonth}`).addEventListener("blur", calcTime);
+        let beginTime = document.getElementById(`timeFrom-${dayOfMonth}`).value;
+        let endTime = document.getElementById(`timeTo-${dayOfMonth}`).value;
+        let breakTime = document.getElementById(`break-${dayOfMonth}`).value;
         let summ_value = calcTime(beginTime, endTime, breakTime);
-       
-        document.getElementById(`summ${dayOfMonth}`).innerHTML = summ_value;
+
+        document.getElementById(`summ-${dayOfMonth}`).innerHTML = summ_value;
     }
 }
 
-document.getElementById(`break01`).addEventListener("blur", calcTime2);
-document.getElementById(`break02`).addEventListener("blur", calcTime2);
-document.getElementById(`break03`).addEventListener("blur", calcTime2);
-document.getElementById(`break04`).addEventListener("blur", calcTime2);
-
-
+document.getElementById(`break-01`).addEventListener("blur", calcTime2);
 
 document.getElementById("Rechner").addEventListener("click", rechnen);
-
