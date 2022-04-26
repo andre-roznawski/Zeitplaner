@@ -72,9 +72,9 @@ function columnMonat() {
     }
     for (let dayOfMonth = 1; dayOfMonth < 31; dayOfMonth++) {
         if (dayOfMonth < 10) {
-            dayOfMonth = "0" + dayOfMonth;
+            dayOfMonth = (`${test}`) + dayOfMonth;
         }
-
+       
         let ausgabe = dayOfMonth + "." + month + "." + year;
 
         document.getElementById('tableBody').innerHTML = document.getElementById('tableBody').innerHTML + `
@@ -117,16 +117,16 @@ function calcTime2(ereignis) {
 function calcTime(beginTime, endTime, breakTime) {
 
     let beginpaket = beginTime.split(":");
-    let begin_minuten = beginpaket[0] * 60;
-    let sumBegin = parseInt(begin_minuten) + parseInt(beginpaket[1]);
+    let begin_minuten = parseInt(beginpaket[0]) * 60;
+    let sumBegin = begin_minuten + parseInt(beginpaket[1]);
 
     let endpaket = endTime.split(":");
-    let end_minuten = endpaket[0] * 60;
-    let sumEnd = parseInt(end_minuten) + parseInt(endpaket[1]);
+    let end_minuten = parseInt (endpaket[0]) * 60;
+    let sumEnd = end_minuten + parseInt(endpaket[1]);
 
     let breakpaket = breakTime.split(":");
-    let break_minuten = breakpaket[0] * 60;
-    let sumBreak = parseInt(break_minuten) + parseInt(breakpaket[1]);
+    let break_minuten = parseInt (breakpaket[0]) * 60;
+    let sumBreak = break_minuten + parseInt(breakpaket[1]);
 
     let summe = sumEnd - sumBegin;
 
@@ -148,6 +148,13 @@ function calcTime(beginTime, endTime, breakTime) {
     if (minuten < 10) {
         minuten = (`${test}`) + minuten
     };
+    if (isNaN(stunden1)){ 
+        stunden1 = "00"
+    }
+    if (isNaN(minuten)){
+        minuten = "00"
+    }
+
     let sumString = (`${stunden1}:${minuten}`)
 
     return sumString;
@@ -181,6 +188,7 @@ function ausfuehren() {
         document.getElementById(`break-${dayOfMonth}`).addEventListener("blur", calcTime2);
     }
 }
+
 ausfuehren();
 
 //document.getElementById("Rechner").addEventListener("click", rechnen);
