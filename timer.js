@@ -112,7 +112,7 @@ function calcTime2(ereignis) {
     let summ_value = calcTime(beginTime, endTime, breakTime);
 
     document.getElementById(`summ-${dayOfMonth}`).innerHTML = summ_value;
-};
+}
 
 function calcTime(beginTime, endTime, breakTime) {
 
@@ -157,7 +157,7 @@ function rechnen() {
 
     for (let dayOfMonth = 1; dayOfMonth < 31; dayOfMonth++) {
         if (dayOfMonth < 10) {
-            dayOfMonth = "0" + dayOfMonth;
+            dayOfMonth = (`${test}`) + dayOfMonth;
         }
 
         let beginTime = document.getElementById(`timeFrom-${dayOfMonth}`).value;
@@ -169,6 +169,18 @@ function rechnen() {
     }
 }
 
-document.getElementById(`break-01`).addEventListener("blur", calcTime2);
+function ausfuehren() {
 
-document.getElementById("Rechner").addEventListener("click", rechnen);
+    for (let dayOfMonth = 1; dayOfMonth < 31; dayOfMonth++) {
+        if (dayOfMonth < 10) {
+            dayOfMonth = (`${test}`) + dayOfMonth;
+        }
+
+        document.getElementById(`timeFrom-${dayOfMonth}`).addEventListener("blur", calcTime2);
+        document.getElementById(`timeTo-${dayOfMonth}`).addEventListener("blur", calcTime2);
+        document.getElementById(`break-${dayOfMonth}`).addEventListener("blur", calcTime2);
+    }
+}
+ausfuehren();
+
+//document.getElementById("Rechner").addEventListener("click", rechnen);
