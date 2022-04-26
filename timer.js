@@ -100,6 +100,11 @@ function columnMonat() {
 
 columnMonat();
 
+function calcTime2 (ereignis){
+   let id = ereignis.target.id;
+   console.log(id)
+};
+
 function calcTime(beginTime, endTime, breakTime) {
 
     let beginpaket = beginTime.split(":");
@@ -149,11 +154,19 @@ function rechnen() {
         let beginTime = document.getElementById(`timeFrom${dayOfMonth}`).value;
         let endTime = document.getElementById(`timeTo${dayOfMonth}`).value;
         let breakTime = document.getElementById(`break${dayOfMonth}`).value;
+        //document.getElementById(`break${dayOfMonth}`).addEventListener("blur", calcTime);
         let summ_value = calcTime(beginTime, endTime, breakTime);
-
+       
         document.getElementById(`summ${dayOfMonth}`).innerHTML = summ_value;
     }
 }
+
+document.getElementById(`break01`).addEventListener("blur", calcTime2);
+document.getElementById(`break02`).addEventListener("blur", calcTime2);
+document.getElementById(`break03`).addEventListener("blur", calcTime2);
+document.getElementById(`break04`).addEventListener("blur", calcTime2);
+
+
 
 document.getElementById("Rechner").addEventListener("click", rechnen);
 
