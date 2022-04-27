@@ -81,7 +81,7 @@ function columnMonat() {
     <tr>
     <td id="day">${ausgabe}</td>
     <td>
-        <input id="text-${dayOfMonth}" type="text"></input>
+        <input id="text-${dayOfMonth}" class="text" type="text"></input>
     </td>
     <td>
         <input id="timeFrom-${dayOfMonth}" type="text"></input>
@@ -190,5 +190,48 @@ function ausfuehren() {
 }
 
 ausfuehren();
+
+function json() {
+
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    if (month < 10) {
+        month = (`${test}`) + month;
+    }
+    if (day < 10) {
+        day = (`${test}`) + day;
+    }
+
+    for (let dayOfMonth = 1; dayOfMonth < 31; dayOfMonth++) {
+        if (dayOfMonth < 10) {
+            dayOfMonth = (`${test}`) + dayOfMonth;
+        }
+
+        let ausgabe = dayOfMonth + "." + month + "." + year;
+        let text = document.getElementById(`text-${dayOfMonth}`).value;
+        let beginTime = document.getElementById(`timeFrom-${dayOfMonth}`).value;
+        let endTime = document.getElementById(`timeTo-${dayOfMonth}`).value;
+        let breakTime = document.getElementById(`break-${dayOfMonth}`).value;
+        let summ_value = calcTime(beginTime, endTime, breakTime);
+
+        document.getElementById(`summ-${dayOfMonth}`).innerHTML = summ_value;
+
+        let data = {
+            beschreibung: text,
+            bis_zeit: endTime,
+            datum: ausgabe,
+            pause_zeit: breakTime,
+            summe_zeit: summ_value,
+            von_zeit: beginTime
+        };
+
+        let json = JSON.stringify(data);
+        console.log(json)
+    }
+}
+json ();
 
 //document.getElementById("Rechner").addEventListener("click", rechnen);
