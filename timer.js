@@ -212,7 +212,7 @@ function json() {
             dayOfMonth = (`${test}`) + dayOfMonth;
         }
 
-        let ausgabe = dayOfMonth + "." + month + "." + year;
+        let ausgabe = year + "-" + month + "-" + dayOfMonth;
         let text = document.getElementById(`text-${dayOfMonth}`).value;
         let beginTime = document.getElementById(`timeFrom-${dayOfMonth}`).value;
         let endTime = document.getElementById(`timeTo-${dayOfMonth}`).value;
