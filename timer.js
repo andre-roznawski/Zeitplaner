@@ -223,11 +223,11 @@ function json() {
 
         let data = {
             beschreibung: text,
-            bis_zeit: endTime,
+            bisZeit: endTime,
             datum: ausgabe,
-            pause_zeit: breakTime,
-            summe_zeit: summ_value,
-            von_zeit: beginTime
+            pauseZeit: breakTime,
+            summeZeit: summ_value,
+            vonZeit: beginTime
         };
 
         monat[dayOfMonth-1] = data;
