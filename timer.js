@@ -72,27 +72,27 @@ function columnMonat() {
     }
     for (let dayOfMonth = 1; dayOfMonth < 31; dayOfMonth++) {
         if (dayOfMonth < 10) {
-            dayOfMonth = "0" + dayOfMonth;
+            dayOfMonth = (`${test}`) + dayOfMonth;
         }
-
-    let ausgabe = dayOfMonth + "." + month + "." + year;
+       
+        let ausgabe = dayOfMonth + "." + month + "." + year;
 
         document.getElementById('tableBody').innerHTML = document.getElementById('tableBody').innerHTML + `
     <tr>
     <td id="day">${ausgabe}</td>
     <td>
-        <input id="text${dayOfMonth}" type="text"></input>
+        <input id="text-${dayOfMonth}" class="text" type="text"></input>
     </td>
     <td>
-        <input id="timeFrom${dayOfMonth}" type="text"></input>
+        <input id="timeFrom-${dayOfMonth}" type="text"></input>
     </td>
     <td>
-        <input id="timeTo${dayOfMonth}" type="text"></input>
+        <input id="timeTo-${dayOfMonth}" type="text"></input>
     </td>
     <td>
-        <input id="break${dayOfMonth}" type="text"></input>
+        <input id="break-${dayOfMonth}" type="text"></input>
     </td>
-    <td id="summ${dayOfMonth}"></td>
+    <td id="summ-${dayOfMonth}"></td>
 </tr>`;
 
     }
@@ -100,30 +100,44 @@ function columnMonat() {
 
 columnMonat();
 
+function calcTime2(ereignis) {
+    let id = ereignis.target.id;
+    let array_id = id.split('-');
+    let dayOfMonth = array_id[1];
+    console.log(id);
+
+    let beginTime = document.getElementById(`timeFrom-${dayOfMonth}`).value;
+    let endTime = document.getElementById(`timeTo-${dayOfMonth}`).value;
+    let breakTime = document.getElementById(`break-${dayOfMonth}`).value;
+    let summ_value = calcTime(beginTime, endTime, breakTime);
+
+    document.getElementById(`summ-${dayOfMonth}`).innerHTML = summ_value;
+}
+
 function calcTime(beginTime, endTime, breakTime) {
 
     let beginpaket = beginTime.split(":");
-    let begin_minuten = beginpaket[0] * 60;
-    let sumBegin = parseInt(begin_minuten) + parseInt(beginpaket[1]);
+    let begin_minuten = parseInt(beginpaket[0]) * 60;
+    let sumBegin = begin_minuten + parseInt(beginpaket[1]);
 
     let endpaket = endTime.split(":");
-    let end_minuten = endpaket[0] * 60;
-    let sumEnd = parseInt(end_minuten) + parseInt(endpaket[1]);
+    let end_minuten = parseInt (endpaket[0]) * 60;
+    let sumEnd = end_minuten + parseInt(endpaket[1]);
 
     let breakpaket = breakTime.split(":");
-    let break_minuten = breakpaket[0] * 60;
-    let sumBreak = parseInt(break_minuten) + parseInt(breakpaket[1]);
+    let break_minuten = parseInt (breakpaket[0]) * 60;
+    let sumBreak = break_minuten + parseInt(breakpaket[1]);
 
     let summe = sumEnd - sumBegin;
 
-    if (sumBreak>30){
+    if (sumBreak > 30) {
         summe = sumEnd - sumBegin - sumBreak;
     } else {
-        if (summe>360){
+        if (summe > 360) {
             summe = summe - 30
-            }
         }
-    
+    }
+
     console.log(`${sumBegin} + ${sumEnd} + ${summe}`);
 
     let stunden1 = Math.floor(summe / 60);
@@ -134,6 +148,13 @@ function calcTime(beginTime, endTime, breakTime) {
     if (minuten < 10) {
         minuten = (`${test}`) + minuten
     };
+    if (isNaN(stunden1)){ 
+        stunden1 = "00"
+    }
+    if (isNaN(minuten)){
+        minuten = "00"
+    }
+
     let sumString = (`${stunden1}:${minuten}`)
 
     return sumString;
@@ -143,17 +164,85 @@ function rechnen() {
 
     for (let dayOfMonth = 1; dayOfMonth < 31; dayOfMonth++) {
         if (dayOfMonth < 10) {
-            dayOfMonth = "0" + dayOfMonth;
+            dayOfMonth = (`${test}`) + dayOfMonth;
         }
 
-        let beginTime = document.getElementById(`timeFrom${dayOfMonth}`).value;
-        let endTime = document.getElementById(`timeTo${dayOfMonth}`).value;
-        let breakTime = document.getElementById(`break${dayOfMonth}`).value;
+        let beginTime = document.getElementById(`timeFrom-${dayOfMonth}`).value;
+        let endTime = document.getElementById(`timeTo-${dayOfMonth}`).value;
+        let breakTime = document.getElementById(`break-${dayOfMonth}`).value;
         let summ_value = calcTime(beginTime, endTime, breakTime);
 
-        document.getElementById(`summ${dayOfMonth}`).innerHTML = summ_value;
+        document.getElementById(`summ-${dayOfMonth}`).innerHTML = summ_value;
     }
 }
 
-document.getElementById("Rechner").addEventListener("click", rechnen);
+function ausfuehren() {
 
+    for (let dayOfMonth = 1; dayOfMonth < 31; dayOfMonth++) {
+        if (dayOfMonth < 10) {
+            dayOfMonth = (`${test}`) + dayOfMonth;
+        }
+
+        document.getElementById(`timeFrom-${dayOfMonth}`).addEventListener("blur", calcTime2);
+        document.getElementById(`timeTo-${dayOfMonth}`).addEventListener("blur", calcTime2);
+        document.getElementById(`break-${dayOfMonth}`).addEventListener("blur", calcTime2);
+    }
+}
+
+ausfuehren();
+
+function json() {
+
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    if (month < 10) {
+        month = (`${test}`) + month;
+    }
+    if (day < 10) {
+        day = (`${test}`) + day;
+    }
+
+    let monat = [];
+
+    for (let dayOfMonth = 1; dayOfMonth < 31; dayOfMonth++) {
+        if (dayOfMonth < 10) {
+            dayOfMonth = (`${test}`) + dayOfMonth;
+        }
+
+        let ausgabe = year + "-" + month + "-" + dayOfMonth;
+        let text = document.getElementById(`text-${dayOfMonth}`).value;
+        let beginTime = document.getElementById(`timeFrom-${dayOfMonth}`).value;
+        let endTime = document.getElementById(`timeTo-${dayOfMonth}`).value;
+        let breakTime = document.getElementById(`break-${dayOfMonth}`).value;
+        let summ_value = calcTime(beginTime, endTime, breakTime);
+
+        document.getElementById(`summ-${dayOfMonth}`).innerHTML = summ_value;
+
+        let data = {
+            beschreibung: text,
+            bis_zeit: endTime,
+            datum: ausgabe,
+            pause_zeit: breakTime,
+            summe_zeit: summ_value,
+            von_zeit: beginTime
+        };
+
+        monat[dayOfMonth-1] = data;
+       
+    }
+    let json = JSON.stringify(monat);
+    console.log(monat);
+
+    fetch('/timer/',
+	  {
+		headers: {"Content-type": "application/json"},
+		method: "POST",
+		body: json 
+	  }	   
+	)
+}
+
+document.getElementById("Speichern").addEventListener("click", json);
