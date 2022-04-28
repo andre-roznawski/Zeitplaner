@@ -205,6 +205,8 @@ function json() {
         day = (`${test}`) + day;
     }
 
+    let monat = [];
+
     for (let dayOfMonth = 1; dayOfMonth < 31; dayOfMonth++) {
         if (dayOfMonth < 10) {
             dayOfMonth = (`${test}`) + dayOfMonth;
@@ -228,10 +230,19 @@ function json() {
             von_zeit: beginTime
         };
 
-        let json = JSON.stringify(data);
-        console.log(json)
+        monat[dayOfMonth-1] = data;
+       
     }
-}
-json ();
+    let json = JSON.stringify(monat);
+    console.log(monat);
 
-//document.getElementById("Rechner").addEventListener("click", rechnen);
+    fetch('/timer/',
+	  {
+		headers: {"Content-type": "application/json"},
+		method: "POST",
+		body: json 
+	  }	   
+	)
+}
+
+document.getElementById("Speichern").addEventListener("click", json);
