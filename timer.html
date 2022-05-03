@@ -10,9 +10,13 @@
 
 <body id="body">
     <div>
-        <div id="headline">
+        <div class="headlineFrame">
+            <div id="headline">
             <h1>Zeiterfassung</h1>
+
+                    
         </div>
+    </div>
 
         <div id="date">
             Das heutige Datum ist:
@@ -21,9 +25,11 @@
         <div id="time1">
             Die aktuelle Uhrzeit ist: <span id="time"></span>
         </div>
-        <table id="tabelle">
+        <div class="tableFrame">
+              <table id="tabelle">
             <thead>
                 <tr>
+                                   
                     <th>Datum</th>
                     <th>Text</th>
                     <th>von/hh:mm</th>
@@ -35,7 +41,10 @@
             <tbody id="tableBody">
             </tbody>
         </table>
+    </div>
+    
         <button id="Rechner" type="submit">Zeit berechnen</button>
+        
     </div>
 </body>
 
